@@ -3,6 +3,13 @@ body {
   background-color: #011f3f;
 }
 
+footer {
+  font-family: "Press Start 2P", cursive;
+  margin-top: 40px;
+  color: #fbf8b2;
+  color: white;
+}
+
 #level-title {
   font-family: "Press Start 2P", cursive;
   font-size: 3rem;
@@ -49,13 +56,6 @@ body {
 .pressed {
   box-shadow: 0 0 20px white;
   background-color: grey;
-}
-
-footer {
-  font-family: "Press Start 2P", cursive;
-  margin-top: 40px;
-  color: #fbf8b2;
-  color: white;
 }
 
 /* flash */
