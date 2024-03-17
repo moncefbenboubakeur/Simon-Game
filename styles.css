@@ -51,7 +51,14 @@ body {
   background-color: grey;
 }
 
-//flash
+footer {
+  font-family: "Press Start 2P", cursive;
+  margin-top: 40px;
+  color: #fbf8b2;
+  color: white;
+}
+
+/* flash */
 
 .flash {
   -moz-animation: flash 1s ease-out;
