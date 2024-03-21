@@ -56,6 +56,46 @@ function animatePress(currentColour) {
 
 // *****************************************************************************
 
+// Function checkAnswer ()
+// *****************************************************************************
+function checkAnswer(currentLevel) {
+  console.log("userClickedPattern " + userClickedPattern);
+  console.log("gamePattern " + gamePattern);
+  console.log("gamePattern length " + gamePattern.length);
+  console.log("currentLevel " + currentLevel);
+  console.log("userClickedPattern length " + userClickedPattern.length);
+
+  if (userClickedPattern.length === gamePattern.length) {
+    var i = 0;
+    var correct = true;
+
+    while (i < gamePattern.length) {
+      console.log("i " + i);
+      console.log(gamePattern[i]);
+      if (userClickedPattern[i] === gamePattern[i]) {
+        console.log("success");
+      } else {
+        correct = false;
+        console.log("wrong");
+      }
+      i++;
+    }
+
+    if (correct) {
+      console.log("All success");
+    } else {
+      console.log("at least one wrong");
+      userClickedPattern = [];
+      gamePattern = [];
+    }
+
+    userClickedPattern = [];
+    setInterval(nextSequence(), 1000);
+  }
+}
+
+// *****************************************************************************
+
 $(document).on("keypress", function (e) {
   let userChosenColour = e.key;
   if (!gameStarted) {
@@ -69,4 +109,5 @@ $(document).on("click", function (e) {
   userClickedPattern.push(userChosenColour);
   animatePress(userChosenColour);
   playSound(userChosenColour);
+  checkAnswer(userClickedPattern.length - 1);
 });
