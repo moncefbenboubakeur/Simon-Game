@@ -12,8 +12,23 @@ footer {
 
 #level-title {
   font-family: "Press Start 2P", cursive;
+  /* font-size: 3rem; */
+  /* margin: 4%; */
+  color: #fef2bf;
+}
+
+.level-title-3rem {
+  font-family: "Press Start 2P", cursive;
   font-size: 3rem;
-  margin: 5%;
+  margin: 4%;
+  color: #fef2bf;
+}
+
+.level-title-2rem {
+  font-family: "Press Start 2P", cursive;
+  font-size: 2rem;
+  margin: 4.5%;
+  /* margin-bottom: 100px; */
   color: #fef2bf;
 }
 

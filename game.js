@@ -40,11 +40,6 @@ function playSound(name) {
 // Function animatePress ()
 // *****************************************************************************
 function animatePress(currentColour) {
-  // $("#" + currentColour)
-  //   .fadeIn(100)
-  //   .fadeOut(100)
-  //   .fadeIn(100);
-
   //2. Use jQuery to add this pressed class to the button that gets clicked inside animatePress().
   $("#" + currentColour).addClass("pressed");
 
@@ -59,55 +54,101 @@ function animatePress(currentColour) {
 // Function checkAnswer ()
 // *****************************************************************************
 function checkAnswer(currentLevel) {
-  console.log("userClickedPattern " + userClickedPattern);
-  console.log("gamePattern " + gamePattern);
-  console.log("gamePattern length " + gamePattern.length);
-  console.log("currentLevel " + currentLevel);
-  console.log("userClickedPattern length " + userClickedPattern.length);
-
   if (userClickedPattern.length === gamePattern.length) {
     var i = 0;
     var correct = true;
-
     while (i < gamePattern.length) {
-      console.log("i " + i);
-      console.log(gamePattern[i]);
       if (userClickedPattern[i] === gamePattern[i]) {
-        console.log("success");
       } else {
         correct = false;
-        console.log("wrong");
       }
       i++;
     }
 
     if (correct) {
-      console.log("All success");
+      setTimeout(function () {
+        nextSequence();
+      }, 1000);
     } else {
-      console.log("at least one wrong");
-      userClickedPattern = [];
-      gamePattern = [];
+      gameOver();
     }
 
     userClickedPattern = [];
-    setInterval(nextSequence(), 1000);
+  } else {
+    var i = 0;
+    var correct = true;
+    while (i < userClickedPattern.length) {
+      if (userClickedPattern[i] === gamePattern[i]) {
+      } else {
+        correct = false;
+      }
+      i++;
+    }
+
+    if (correct) {
+    } else {
+      gameOver();
+    }
   }
 }
 
 // *****************************************************************************
 
+// Function gameOver ()
+// *****************************************************************************
+function startOver() {
+  gameStarted = false;
+  userClickedPattern = [];
+  gamePattern = [];
+  level = 0;
+}
+// *****************************************************************************
+
+// Function switchLevelTitle ()
+// *****************************************************************************
+function switchLevelTitle() {
+  if (!gameStarted) {
+    $("#level-title").removeClass("level-title-2rem");
+    $("#level-title").addClass("level-title");
+  } else {
+    $("#level-title").removeClass("level-title");
+    $("#level-title").addClass("level-title-2rem");
+  }
+}
+// *****************************************************************************
+
+// Function gameOver ()
+// *****************************************************************************
+function gameOver() {
+  switchLevelTitle();
+  $("#level-title").text("Game Over, Press Any Key to Restart");
+
+  $("body").addClass("game-over");
+  setTimeout(function () {
+    $("body").removeClass("game-over");
+    playSound("wrong");
+  }, 200);
+
+  startOver();
+}
+// *****************************************************************************
+
 $(document).on("keypress", function (e) {
   let userChosenColour = e.key;
   if (!gameStarted) {
+    switchLevelTitle();
     gameStarted = true;
     nextSequence();
   }
 });
 
 $(document).on("click", function (e) {
-  let userChosenColour = e.target.id;
-  userClickedPattern.push(userChosenColour);
-  animatePress(userChosenColour);
-  playSound(userChosenColour);
-  checkAnswer(userClickedPattern.length - 1);
+  if (gameStarted) {
+    let userChosenColour = e.target.id;
+    userClickedPattern.push(userChosenColour);
+    animatePress(userChosenColour);
+    playSound(userChosenColour);
+    checkAnswer(userClickedPattern.length - 1);
+  } else {
+  }
 });
